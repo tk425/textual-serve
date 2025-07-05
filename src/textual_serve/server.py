@@ -74,6 +74,7 @@ class Server:
         public_url: str | None = None,
         statics_path: str | os.PathLike = "./static",
         templates_path: str | os.PathLike = "./templates",
+        inject_textual_terminal_style: str = "",
     ):
         """
 
@@ -89,6 +90,7 @@ class Server:
         self.port = port
         self.title = title or command
         self.debug = False
+        self.inject_textual_terminal_style = inject_textual_terminal_style
 
         if public_url is None:
             if self.port == 80:
@@ -267,6 +269,7 @@ class Server:
             "static": {
                 "url": get_url("static", filename="/").rstrip("/") + "/",
             },
+            "inject_textual_terminal_style": self.inject_textual_terminal_style,
         }
         context["application"] = {
             "name": self.title,
